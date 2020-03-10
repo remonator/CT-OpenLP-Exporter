@@ -50,6 +50,19 @@ function CT_saveCookies($domain, $r) {
 	}
 }
 
+function CT_getCSRFToken($url){
+    static $token = array();
+    
+    $domain = getCoreDomain($url);
+    
+    if(isset($token[$domain]) && !empty($token[$domain]))
+        return $token[$domain];
+    
+    $result = CTNew_getRequest("https://$domain/api/csrftoken", array());
+    $token[$domain] = $result->data;
+    return $token[$domain];
+}
+
 function CT_sendRequestMultipart($domain, $url, $content, $delimiter) {
 	$options = array(
 		'http'=>array(
@@ -68,10 +81,15 @@ function CT_sendRequestMultipart($domain, $url, $content, $delimiter) {
 	return $obj;
 }
 
-function CT_sendRequest($domain, $url, $data) {
+function CT_sendRequest($domain, $url, $data, $csrf_token_required = true) {
+    $header = "Cookie: ". CT_getCookies($domain) . "\r\nContent-type: application/x-www-form-urlencoded\r\n";
+    if($csrf_token_required)
+        $header .= "csrf-token: " . CT_getCSRFToken($domain) . "\r\n";
+    
+    
 	$options = array(
 		'http'=>array(
-			'header' => "Cookie: ". CT_getCookies($domain) . "\r\nContent-type: application/x-www-form-urlencoded\r\n",
+			'header' => $header,
 			'method' => 'POST',
 			'content' => http_build_query($data),
 		)
@@ -95,7 +113,7 @@ function CT_login($domain, $token, $id){
 				  'id' => $id,
 				  'directtool' => 'CT OpenLP Exporter'
 			);
-	$result = CT_sendRequest($domain, $url, $data);
+	$result = CT_sendRequest($domain, $url, $data, false);
 	return ($result->status == "success");
 }
 
@@ -107,7 +125,7 @@ function CT_loginAuth($domain, $email, $pw){
 				  'password' => $pw,
 				  'directtool' => 'CT OpenLP Exporter'
 			);
-	$result = CT_sendRequest($domain, $url, $data);
+	$result = CT_sendRequest($domain, $url, $data, false);
 	return ($result->status == "success");
 }
 
