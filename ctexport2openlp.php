@@ -539,7 +539,7 @@ function explodeXmlSong($ctSong, $file){
 function provideDownload($filename){
     header('Content-Type: application/zip');
     header("Content-Transfer-Encoding: Binary"); 
-    header("Content-disposition: attachment; filename=\"" . basename($filename) . "\""); 
+    header("Content-Disposition: attachment; filename=\"" . basename($filename) . "\"");
     readfile($filename);
     unlink($filename);
     exit();
