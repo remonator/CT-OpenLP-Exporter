@@ -537,7 +537,7 @@ function explodeXmlSong($ctSong, $file){
 }
 
 function provideDownload($filename){
-    header('Content-Type: application/octet-stream');
+    header('Content-Type: application/zip');
     header("Content-Transfer-Encoding: Binary"); 
     header("Content-disposition: attachment; filename=\"" . basename($filename) . "\""); 
     readfile($filename);
