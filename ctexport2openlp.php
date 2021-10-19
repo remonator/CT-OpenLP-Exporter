@@ -274,7 +274,7 @@ function writeVersesToXML($openLPSong, &$xml){
         $xml->startElement("verse");
             $xml->writeAttribute("name", $verse["verseTag"]);
             $xml->startElement("lines");
-                $xml->writeRaw(nl2br($verse["raw_slide"]));
+                $xml->writeRaw($verse["raw_slide"]);
             $xml->endElement();
         $xml->endElement();
     }
