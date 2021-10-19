@@ -70,7 +70,7 @@ function build_login_form(){
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 			
 			<label for="server"><b>CT Address</b></label>
-			<input type="text" placeholder="Enter adress" name="server" value="<?php echo isset($_POST["server"]) ? $_POST["server"] : ""; ?>" required>
+			<input type="text" placeholder="Enter adress" name="server" value="<?php echo isset($_POST["server"]) ? $_POST["server"] : "svd.church.tools"; ?>" required>
 			
 			<label for="id"><b>User ID</b></label>
 			<input type="text" placeholder="Enter id" name="id" value="<?php echo isset($_POST["id"]) ? $_POST["id"] : ""; ?>" required>
@@ -88,7 +88,7 @@ function build_login_form(){
 		<div class="loginByCreds">
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 			<label for="server"><b>CT Address</b></label>
-			<input type="text" placeholder="Enter adress" name="server" value="<?php echo isset($_POST["server"]) ? $_POST["server"] : ""; ?>" required>
+			<input type="text" placeholder="Enter adress" name="server" value="<?php echo isset($_POST["server"]) ? $_POST["server"] : "svd.church.tools"; ?>" required>
 			
 			<label for="email"><b>E-Mail</b></label>
 			<input type="text" placeholder="Enter E-Mail" name="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ""; ?>" required>
