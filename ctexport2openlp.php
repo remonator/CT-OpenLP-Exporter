@@ -274,7 +274,7 @@ function writeVersesToXML($openLPSong, &$xml){
         $xml->startElement("verse");
             $xml->writeAttribute("name", $verse["verseTag"]);
             $xml->startElement("lines");
-                $xml->writeRaw(nl2br($verse["raw_slide"]));
+                $xml->writeRaw(replace_nl2br($verse["raw_slide"]));
             $xml->endElement();
         $xml->endElement();
     }
@@ -577,6 +577,11 @@ function createOpenLPService($serviceName, $openLPSongs){
     $zip->close();
     
     provideDownload($filename);
+}
+
+function replace_nl2br($string) {
+    $string = str_replace(array("\r\n", "\n\r", "\r", "\n"), "<br />", $string);
+    return $string;
 }
 
 
